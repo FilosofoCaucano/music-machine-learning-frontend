@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import './Sidebar.css';
 
 // Componente reutilizable para una sección expandible
-const ExpandableSection = ({ title, content, imageSrc, altText, isExpanded, toggleSection }) => {
+const ExpandableSection = ({ title, content, isExpanded, toggleSection }) => {
     return (
         <>
             <button
@@ -15,7 +14,6 @@ const ExpandableSection = ({ title, content, imageSrc, altText, isExpanded, togg
             </button>
             {isExpanded && (
                 <div id={`${title.toLowerCase()}-content`} className="expanded-section">
-                    {imageSrc && <img src={imageSrc} alt={altText} className="ml-image" />}
                     {typeof content === 'string' ? <p>{content}</p> : content}
                 </div>
             )}
@@ -76,17 +74,16 @@ const Sidebar = ({ onFilterChange, onSearch }) => {
                     title="Clasificación"
                     content={
                         <>
-                            <p><strong>Clasificación:</strong> Un algoritmo analiza el audio y determina a qué categoría pertenece el instrumento.</p>
+                            <p><strong>Clasificación:</strong> Es una tarea supervisada donde un modelo aprende a categorizar un instrumento musical basándose en características extraídas del audio.</p>
                             <ul>
-                                <li>Se extraen características acústicas como espectrogramas, MFCCs y armónicos.</li>
-                                <li>Se aplican modelos como Redes Neuronales Convolucionales (CNN), SVM o Random Forest.</li>
-                                <li>El sistema decide si el instrumento es de viento, cuerda o percusión basándose en patrones aprendidos.</li>
+                                <li>Se procesa el sonido mediante técnicas como MFCCs (Mel Frequency Cepstral Coefficients), espectrogramas o armónicos.</li>
+                                <li>El modelo es entrenado con datos etiquetados (ejemplo: flauta, violín, batería).</li>
+                                <li>Algunos algoritmos usados incluyen Redes Neuronales Convolucionales (CNN), Máquinas de Vectores de Soporte (SVM) y Random Forest.</li>
+                                <li>El resultado final es una categoría asignada automáticamente al instrumento detectado.</li>
                             </ul>
-                            <p><strong>Nota:</strong> La clasificación es útil para organizar grandes bases de datos de sonidos musicales.</p>
+                            <p><strong>Aplicaciones:</strong> Organización automática de bibliotecas musicales, análisis acústico y sistemas de recomendación musical.</p>
                         </>
                     }
-                    imageSrc="/images/classification-diagram.png"
-                    altText="Proceso de Clasificación"
                     isExpanded={expandedSection === "clasificacion"}
                     toggleSection={() => toggleSection("clasificacion")}
                 />
@@ -96,17 +93,16 @@ const Sidebar = ({ onFilterChange, onSearch }) => {
                     title="Identificación"
                     content={
                         <>
-                            <p><strong>Identificación:</strong> Detecta la presencia de un instrumento específico en una grabación de audio.</p>
+                            <p><strong>Identificación:</strong> Consiste en reconocer un instrumento específico dentro de una grabación compleja o mezcla musical.</p>
                             <ul>
-                                <li>Se analiza la señal de audio en tiempo real utilizando transformadas de Fourier.</li>
-                                <li>Se compara con una base de datos de sonidos de referencia mediante DTW.</li>
-                                <li>Se determina si el instrumento es una quena, charango, bombo, etc., con alto grado de precisión.</li>
+                                <li>Se analiza la señal de audio en tiempo real o por segmentos cortos.</li>
+                                <li>Se comparan las características del sonido con modelos previamente entrenados de instrumentos específicos.</li>
+                                <li>Se utiliza técnicas como Dynamic Time Warping (DTW) para medir similitud entre señales no sincronizadas.</li>
+                                <li>Los modelos pueden ser entrenados con muestras limpias de instrumentos tradicionales como quena, charango o bombo.</li>
                             </ul>
-                            <p><strong>Nota:</strong> La identificación es útil en aplicaciones como transcripción automática de música.</p>
+                            <p><strong>Usos prácticos:</strong> Transcripción automática de partituras, análisis etnomusicológico y asistentes inteligentes para músicos.</p>
                         </>
                     }
-                    imageSrc="/images/identification-process3.jpg"
-                    altText="Proceso de Identificación"
                     isExpanded={expandedSection === "identificacion"}
                     toggleSection={() => toggleSection("identificacion")}
                 />
@@ -121,23 +117,21 @@ const Sidebar = ({ onFilterChange, onSearch }) => {
                     title="Redes Neuronales Convolucionales (CNN)"
                     content={
                         <>
-                            <p>Las CNN son un modelo de aprendizaje profundo diseñado para procesamiento de imágenes y detección de patrones espaciales.</p>
+                            <p><strong>CNN - Introducción:</strong> Son redes neuronales diseñadas para capturar patrones espaciales y temporales en datos estructurados como imágenes o espectrogramas.</p>
                             <ol>
-                                <li><strong>Conversión de audio en imágenes:</strong> El audio se convierte en un espectrograma.</li>
-                                <li><strong>Capas convolucionales:</strong> Filtros detectan patrones característicos de los instrumentos.</li>
-                                <li><strong>Capas de agrupamiento:</strong> Reducen la dimensionalidad sin perder información relevante.</li>
-                                <li><strong>Capas totalmente conectadas:</strong> Combinan todas las características detectadas.</li>
+                                <li><strong>Conversión del audio:</strong> El audio se transforma en un espectrograma (representación visual del espectro de frecuencias).</li>
+                                <li><strong>Capas convolucionales:</strong> Detectan patrones locales como tonos puros, armónicos o timbres característicos.</li>
+                                <li><strong>Pooling:</strong> Reduce la dimensionalidad y mantiene las características más relevantes.</li>
+                                <li><strong>Capas densas:</strong> Realizan la clasificación final basada en las características extraídas.</li>
                             </ol>
-                            <p><strong>Ventajas de las CNN:</strong></p>
+                            <p><strong>Ventajas:</strong></p>
                             <ul>
-                                <li>Aprenden automáticamente las características relevantes del audio.</li>
-                                <li>Son altamente escalables.</li>
-                                <li>Mejor precisión en comparación con enfoques tradicionales.</li>
+                                <li>Aprenden características directamente del audio sin intervención manual.</li>
+                                <li>Muy efectivas en grandes conjuntos de datos y altas precisiones.</li>
+                                <li>Ampliamente usadas en visión artificial y reconocimiento de audio.</li>
                             </ul>
                         </>
                     }
-                    imageSrc="/images/CnnReconocimiento.png"
-                    altText="CNN para clasificación de audio"
                     isExpanded={expandedSection === "cnn"}
                     toggleSection={() => toggleSection("cnn")}
                 />
@@ -147,22 +141,20 @@ const Sidebar = ({ onFilterChange, onSearch }) => {
                     title="Máquina de Vectores de Soporte (SVM)"
                     content={
                         <>
-                            <p>Las SVM encuentran una frontera óptima entre distintas clases de instrumentos musicales.</p>
+                            <p><strong>SVM - Concepto:</strong> Es un algoritmo de clasificación que busca encontrar un hiperplano óptimo que separe diferentes clases de instrumentos.</p>
                             <ol>
-                                <li><strong>Extracción de características:</strong> Se extraen características acústicas como MFCCs.</li>
-                                <li><strong>Frontera de decisión:</strong> La SVM encuentra la línea que mejor separa las clases.</li>
-                                <li><strong>Predicción:</strong> El modelo predice la clase basándose en su proximidad a la frontera.</li>
+                                <li><strong>Extracción de características:</strong> Se usan parámetros como MFCCs, energía, pitch o centroides espectrales.</li>
+                                <li><strong>Separación de clases:</strong> La SVM maximiza el margen entre los puntos más cercanos de diferentes clases.</li>
+                                <li><strong>Kernels:</strong> Pueden manejar datos no linealmente separables usando funciones kernel (lineal, RBF, polinomial).</li>
                             </ol>
-                            <p><strong>Ventajas de las SVM:</strong></p>
+                            <p><strong>Ventajas:</strong></p>
                             <ul>
-                                <li>Eficientes en problemas de alta dimensionalidad.</li>
-                                <li>Funcionan bien con conjuntos de datos pequeños o medianos.</li>
-                                <li>Permiten el uso de kernels para manejar datos no linealmente separables.</li>
+                                <li>Buen rendimiento en conjuntos de datos pequeños o medianos.</li>
+                                <li>Robusta ante ruido si se escoge bien el kernel.</li>
+                                <li>Permite ajustar el equilibrio entre precisión y generalización.</li>
                             </ul>
                         </>
                     }
-                    imageSrc="/images/SmvReconocimiento.png"
-                    altText="SVM en clasificación"
                     isExpanded={expandedSection === "svm"}
                     toggleSection={() => toggleSection("svm")}
                 />
@@ -172,22 +164,21 @@ const Sidebar = ({ onFilterChange, onSearch }) => {
                     title="Clasificación Multiclase"
                     content={
                         <>
-                            <p>La clasificación multiclase permite predecir la clase más probable del instrumento musical entre múltiples categorías.</p>
-                            <ol>
-                                <li><strong>División en problemas binarios:</strong> Algunos algoritmos dividen el problema multiclase en varios problemas binarios.</li>
-                                <li><strong>Modelos especializados:</strong> Otros algoritmos pueden manejar directamente la clasificación multiclase.</li>
-                                <li><strong>Predicción final:</strong> El modelo selecciona la clase con la mayor probabilidad.</li>
-                            </ol>
-                            <p><strong>Ventajas de la clasificación multiclase:</strong></p>
+                            <p><strong>Clasificación Multiclase:</strong> Extensión de la clasificación binaria para trabajar con múltiples categorías simultáneamente.</p>
                             <ul>
-                                <li>Permite trabajar con múltiples categorías de instrumentos simultáneamente.</li>
-                                <li>Es flexible y compatible con diversos modelos de Machine Learning.</li>
-                                <li>Facilita la integración en sistemas de recomendación musical.</li>
+                                <li>En lugar de solo distinguir entre dos clases, puede identificar decenas de instrumentos diferentes.</li>
+                                <li>Se implementa mediante estrategias como One-vs-One o One-vs-Rest.</li>
+                                <li>Es especialmente útil cuando se trabaja con instrumentos folklóricos o regionales como el erke, siku o tarka.</li>
                             </ul>
+                            <p><strong>Ejemplos de uso:</strong></p>
+                            <ul>
+                                <li>Detección automática de instrumentos en orquestas.</li>
+                                <li>Archivos digitales de música tradicional.</li>
+                                <li>Herramientas de edición de audio inteligente.</li>
+                            </ul>
+                            <p><strong>Desafíos:</strong> Requiere un conjunto de datos balanceado y representativo de todas las clases posibles.</p>
                         </>
                     }
-                    imageSrc="/images/MulticlaseReconocimiento.png"
-                    altText="Clasificación multiclase"
                     isExpanded={expandedSection === "multiclase"}
                     toggleSection={() => toggleSection("multiclase")}
                 />
